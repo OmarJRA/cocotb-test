@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cocotb-test"
+version = "0.2.6"  # we'll use setuptools-scm or a fallback
+description = ""
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "BSD" }
+authors = [
+    { name = "Tomasz Hemperek", email = "hemperek@uni-bonn.de" }
+]
+dependencies = [
+    "cocotb>=1.5",
+    "pytest",
+    "find_libpython",
+    "packaging"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "Framework :: cocotb"
+]
+
+[project.scripts]
+cocotb-test = "cocotb_test.cli:config"
+cocotb-run = "cocotb_test.cli:run"
+cocotb-clean = "cocotb_test.cli:clean"
+
+[project.entry-points."pytest11"]
+pytest-cocotb = "cocotb_test.plugin"
+
+[tool.setuptools]
+packages = ["cocotb_test"]
+include-package-data = true
+
+[tool.setuptools.dynamic]
+version = { attr = "cocotb_test.__version__" }
